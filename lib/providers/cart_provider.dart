@@ -6,7 +6,7 @@ import 'cart.dart';
 
 class CartProvider with ChangeNotifier {
 
-    final Map<String, Cart> _items = {
+     Map<String, Cart> _items = {
 
     };
   Map<String, Cart> get items {
@@ -49,6 +49,12 @@ class CartProvider with ChangeNotifier {
   }
   void deleteItemInCart (String id){
     _items.remove(id) ;
+    notifyListeners() ;
+  }
+
+  void clear(){
+
+    _items = {} ;
     notifyListeners() ;
   }
 

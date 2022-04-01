@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/product_provider.dart';
 
 class ProductDetailScreen extends StatelessWidget {
+
 // final String title ;
 //  ProductDetailScreen(this.title);
 
