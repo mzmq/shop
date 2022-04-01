@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-
 import 'cart.dart';
 
 class OrderItem {
@@ -24,16 +23,22 @@ class Orders with ChangeNotifier {
     return [..._orders];
   }
 
-  void addOrder(
-    List<Cart> products,
-    double total,
-  ) {
-    _orders.insert(0, OrderItem(
+  void addOrder(List<Cart> products, double total) {
+    _orders.insert(
+      0,
+      OrderItem(
         id: DateTime.now().toString(),
         amount: total,
         products: products,
         datetime: DateTime.now(),
       ),
     );
+  }
+
+  void DeleteOrder(
+    List<Cart> products,
+  ) {
+    _orders.remove(products);
+    notifyListeners();
   }
 }

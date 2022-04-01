@@ -13,7 +13,7 @@ class Cart {
     required this.id,
     required this.title,
     required this.price,
-    required this.quantity,
+     this.quantity = 0 ,
     required this.imgUrl ,
   });
 }

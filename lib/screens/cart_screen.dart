@@ -33,9 +33,15 @@ class CartScreen extends StatelessWidget {
                 Spacer(),
                 Chip(label: Text('${CartData.TotlePrice} JOD')),
                 TextButton(onPressed: () {
-                  Navigator.of(context).pushNamed(OrderScreen.routeName) ;
-                  getOrders.addOrder(CartData.items.values.toList(), CartData.TotlePrice) ;
-                  CartData.clear() ;
+                  if(CartData.TotlePrice > 0.0 ){
+                    Navigator.of(context).pushNamed(OrderScreen.routeName) ;
+                    getOrders.addOrder(CartData.items.values.toList(), CartData.TotlePrice) ;
+                    CartData.clear() ;
+
+                  } else {
+                    return;
+                  }
+
 
                 }, child: Text('ORDER NOW'))
               ],
@@ -45,7 +51,7 @@ class CartScreen extends StatelessWidget {
               child: ListView.builder(
                   itemCount: CartData.CartCount,
                   itemBuilder: (ctx, i) => CardWidget(
-                        title: CartData.items.values.toList()[i].title,
+                    title: CartData.items.values.toList()[i].title,
                     numberOrItem: CartData.items.values.toList()[i].quantity,
                     price: CartData.items.values.toList()[i].price,
                     id: CartData.items.values.toList()[i].id,

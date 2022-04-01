@@ -40,6 +40,20 @@ class CardWidget extends StatelessWidget {
           alignment: Alignment.centerRight,
         ),
         direction: DismissDirection.endToStart,
+        confirmDismiss: (direction){
+          return showDialog(context: context, builder: (context)=> AlertDialog(
+            title: Text('Are You Sure'),
+            content:Text('Are you sure you want to delete the item? '),
+            actions: [
+              TextButton(onPressed: (){
+                Navigator.of(context).pop(false);
+              }, child: Text('No')),
+              TextButton(onPressed: (){
+                Navigator.of(context).pop(true) ;
+              }, child: Text('Yes')),
+            ],
+          ));
+        },
         onDismissed: (direction) {
           Provider.of<CartProvider>(context , listen: false).deleteItemInCart(productId);
         },

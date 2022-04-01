@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import '../providers/product_provider.dart';
+
+
 import '../providers/products.dart';
 import '../widgets/product_grid.dart';
 import '../widgets/product_item.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart_provider.dart';
 import '../screens/cart_screen.dart';
+import '../widgets/drawer_widget.dart';
 
 enum FilterOption { Favorites, All }
 
 class ProductsOverviewScreen extends StatefulWidget {
+  static const routeName = '/ProductsOverViewScreen';
   @override
   State<ProductsOverviewScreen> createState() => _ProductsOverviewScreenState();
 }
@@ -25,7 +29,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
 
     int cartCount = CartDate.CartCount;
     return Scaffold(
+      drawer: DrawerWidget(),
       appBar: AppBar(
+
         title: Text('Shop'),
         backgroundColor: Theme.of(context).primaryColor,
         actions: [
@@ -49,7 +55,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             ),
           ),
           PopupMenuButton(
-              icon: const Icon(Icons.menu),
+              icon: const Icon(Icons.favorite),
               onSelected: (FilterOption selected) {
                 setState(() {
                   if (selected == FilterOption.Favorites) {

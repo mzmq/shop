@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/orders.dart';
 import '../providers/orders.dart';
 
 class ItemOrderWidget extends StatefulWidget {
+
   final OrderItem order;
 
-  const ItemOrderWidget({Key? key, required this.order}) : super(key: key);
+
+   ItemOrderWidget({Key? key, required this.order}) : super(key: key);
 
   @override
   State<ItemOrderWidget> createState() => _ItemOrderWidgetState();
@@ -44,47 +48,77 @@ class _ItemOrderWidgetState extends State<ItemOrderWidget> {
             ),
             _expand
                 ? Column(
-                    children: widget.order.products
-                        .map((e) => ListTile(
-                              title: Text('${e.title}'),
-                              leading: CircleAvatar(
-                                backgroundImage: NetworkImage(e.imgUrl),
-                              ),
-                              subtitle: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 5,
+                  children: [
+                    Column(
+                        children: widget.order.products
+                            .map((e) => ListTile(
+                                  title: Text('${e.title}'),
+                                  leading: CircleAvatar(
+                                    backgroundImage: NetworkImage(e.imgUrl),
                                   ),
-                                  Row(
+                                  subtitle: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text(DateFormat('dd/MM/yyyy ')
-                                          .format(widget.order.datetime)),
-                                      Text(
-                                        DateFormat()
-                                            .add_jm()
-                                            .format(widget.order.datetime),
-                                        style: TextStyle(color: Colors.blue),
+                                      SizedBox(
+                                        height: 5,
                                       ),
+                                      Row(
+                                        children: [
+                                          Text(DateFormat('dd/MM/yyyy ')
+                                              .format(widget.order.datetime)),
+                                          Text(
+                                            DateFormat()
+                                                .add_jm()
+                                                .format(widget.order.datetime),
+                                            style: TextStyle(color: Colors.blue),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text('${e.quantity} X ${e.price} JOD '),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text('Quantity ${e.quantity}X'),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                ],
-                              ),
-                              trailing: Text('${e.price} JOD'),
-                            ))
-                        .toList(),
-                  )
+                                  trailing: Text('${e.price * e.quantity} JOD'),
+                                ))
+                            .toList() ,
+                      ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
+                          Consumer<Orders>(
+                            builder: (context, value, child) =>ElevatedButton.icon(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(Colors.red) ,
+                                ),
+                                onPressed: () {
+                                setState(() {
+                                });
+                                },
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                ),
+                                label:Text( 'Delete order now'))
+
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )
                 : Container(),
           ],
         ),

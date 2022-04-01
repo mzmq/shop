@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/widgets/order_item_widget.dart';
+
+import '../widgets/drawer_widget.dart';
+import '../widgets/order_item_widget.dart';
 
 import '../providers/orders.dart';
 
@@ -14,6 +16,7 @@ class OrderScreen extends StatelessWidget {
     final getOrder = Provider.of<Orders>(context);
 
     return Scaffold(
+      drawer: DrawerWidget(),
       appBar: AppBar(
         title: const Text('Order Page'),
       ),

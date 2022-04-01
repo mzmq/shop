@@ -2,13 +2,9 @@ import 'package:flutter/foundation.dart';
 
 import 'cart.dart';
 
-
-
 class CartProvider with ChangeNotifier {
+  Map<String, Cart> _items = {};
 
-     Map<String, Cart> _items = {
-
-    };
   Map<String, Cart> get items {
     return {..._items};
   }
@@ -16,14 +12,16 @@ class CartProvider with ChangeNotifier {
   int get CartCount {
     return _items == null ? 0 : _items.length;
   }
+
   double get TotlePrice {
-   var total = 0.0 ;
-   _items.forEach((key, value) {
-     total += value.price * value.quantity  ;
-   }) ;
-    return total ;
+    var total = 0.0;
+    _items.forEach((key, value) {
+      total += value.price * value.quantity;
+    });
+    return total;
   }
-  void addItem(String productId, String title, double price , String imgUrl) {
+
+  void addItem(String productId, String title, double price, String imgUrl) {
     if (_items.containsKey(productId)) {
       // update quantity
       _items.update(
@@ -42,20 +40,37 @@ class CartProvider with ChangeNotifier {
               id: DateTime.now().toString(),
               title: title,
               price: price,
-              imgUrl: imgUrl ,
+              imgUrl: imgUrl,
               quantity: 1));
-      notifyListeners() ;
+      notifyListeners();
     }
   }
-  void deleteItemInCart (String id){
-    _items.remove(id) ;
-    notifyListeners() ;
+
+  void deleteItemInCart(String id) {
+    _items.remove(id);
+    notifyListeners();
   }
 
-  void clear(){
-
-    _items = {} ;
-    notifyListeners() ;
+  void clear() {
+    _items = {};
+    notifyListeners();
   }
 
+  void removeSingleItem(String productId) {
+    if (!_items.containsKey(productId)) {
+      return;
+    } else if (_items[productId]!.quantity > 1) {
+      _items.update(
+          productId,
+          (value) => Cart(
+              id: value.id,
+              title: value.title,
+              price: value.price,
+              imgUrl: value.imgUrl,
+              quantity: value.quantity - 1));
+    } else {
+      _items.remove(productId) ;
+    }
+    notifyListeners();
+  }
 }
