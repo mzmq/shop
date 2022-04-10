@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/product_provider.dart';
 import '../widgets/drawer_widget.dart';
 import '../widgets/manage_product_widget.dart';
+import '../screens/edit_product_screen.dart';
 
 class ProductManage extends StatelessWidget {
   static const routeName = '/ProductManage';
@@ -19,7 +20,9 @@ class ProductManage extends StatelessWidget {
         title: Text('Product Manage'),
         actions: [
 
-          IconButton(onPressed: (){}, icon: Icon(Icons.add)),
+          IconButton(onPressed: (){
+            Navigator.of(context).pushNamed(EditProductScreen.routeName) ;
+          }, icon: Icon(Icons.add)),
           SizedBox(width: 7,) ,
         ],
       ),

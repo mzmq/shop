@@ -21,7 +21,7 @@ class ManageProductWidget extends StatelessWidget {
           child: Row(
             children: [
               IconButton(onPressed: (){
-                Navigator.of(context).pushNamed(EditProductScreen.routeName) ;
+
               }, icon: Icon(Icons.edit)),
               IconButton(onPressed: (){}, icon: Icon(Icons.delete , color:  Colors.red,) ),
             ],
